@@ -157,7 +157,7 @@ unvotes |>
 
 > Describe what the graph above demonstrates above UN voting records for the G7 
   
-  The graph above demonstrates that the proportion of the votes were yes. 
+  >The graph above demonstrates that the proportion of the votes were yes. 
   
   
   
@@ -175,8 +175,6 @@ The second data set, `roll_calls` has more information on the type of vote, the 
 roll_calls |> 
   distinct(short)
 ```
-
-> Description of code results
 
 >It pulls a specific column
 
@@ -197,7 +195,6 @@ roll_calls |>
 
 What information is missing from the above graphic that might be useful in understanding the issues the UN commonly votes on?
 
-> Insert Answer Here
 
 > What specific countries voted for what
 
@@ -209,7 +206,6 @@ roll_calls |>
 
 Does the above information help us understand the voting issues of the UN over time? Explain.
 
-> Insert your answer here
 
 > the graph does not show detail of UN country voting so we cannot associate the ranking per country with the graph
 
@@ -238,7 +234,7 @@ dim(roll_calls)
 ```
 
 
-> Insert Answer Here
+> They do not match.
 
 
 
@@ -246,27 +242,27 @@ Now let's try joining the `roll_calls` with the `issues` data.  Compare the foll
 
 ```{r}
 roll_calls |> 
-  left_join(issues, by = "rcid") #description of join
+  left_join(issues, by = "rcid") #joins the roll_calls data set to the issues data set 
 ```
 
 ```{r}
 roll_calls |> 
-  right_join(issues, by = "rcid") #description of join
+  right_join(issues, by = "rcid") #Joins the issues set to the roll_calls data set. 
 ```
 
 ```{r}
 roll_calls |> 
-  full_join(issues, by = "rcid") #description of join
+  full_join(issues, by = "rcid") #fully joins the data sets 
 ```
 
 ```{r}
 roll_calls |> 
-  inner_join(issues, by = "rcid") #description of join
+  inner_join(issues, by = "rcid") #joins shared columns
 ```
 
 **If we are only interested in retaining the records associated with the `issues` labeled in our data, which join(s) should we use?**
 
-> Insert answer here
+> We would use full_join. 
 
 
 
@@ -279,7 +275,7 @@ Now that we know how to join the data, we will use the following code to examine
 Be sure to run the code via the green arrow on the code chunk, as the `case_when()` code can get finicky sometimes and claim an error about a comma in the code when it doesn't exist.  *Comment on the code where indicated* and add your chosen join function
 ```{r}
 roll_calls |> 
-  _________(issues, by = "rcid") |>  #join roll_calls and issues so that just the votes related to the issues data are retained.
+  inner_join(issues, by = "rcid") |>  #join roll_calls and issues so that just the votes related to the issues data are retained.
   mutate(issue = case_when(
     issue == "Arms control and disarmament" ~ "Arms Control",
     issue == "Nuclear weapons and nuclear material" ~ "Nuclear Weapons",
@@ -300,7 +296,7 @@ roll_calls |>
 
 
 What do you notice? What do you wonder based on the graph created?
-> Insert Answer Here
+> There is a huge spike, I wonder why there is a huge spike within the time of 1980 to 1990s?
 
 
 
@@ -316,8 +312,8 @@ We want to join all three data sets together, *maintaining only the votes for wh
 
 ```{r}
 un_full <- unvotes |> 
-  _________(issues, by = "rcid") |> 
-  _________(roll_calls, by = "rcid") 
+(issues, by = "rcid") |> 
+ (roll_calls, by = "rcid") 
 
 #View(un_full)
 ```
