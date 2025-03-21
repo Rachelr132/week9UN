@@ -1,6 +1,6 @@
 ---
 title: "United Nations Voting Records"
-author: "Rachel"
+author: "Rachel and Aaron"
 format: 
   html: default
   gfm: default
