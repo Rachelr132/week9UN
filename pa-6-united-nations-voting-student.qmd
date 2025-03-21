@@ -124,39 +124,40 @@ issues <- read_csv("data/issues.csv")
 
 ## Data Exploration
 Our goal today is to explore how various members (countries) in the United Nations vote. We have three data sets, what can we determine from each data set separately?
-
+We can determine rcid from each data set. 
 
 ### UN Votes
 
 The first data set, `unvotes` contains data on the `rcid` which is the roll call id for the vote, the country/country code, and how the country voted. What can we learn from the data?  
-
+We can learn the roll call id for the vote, the country/country code, and how the country voted.
 
 Comment on the following code, what is happening in each line?  One way to approach seeing what each line does is to highlight the code from before the `pipe` of that line up to the data `unvotes` and use `CTRL + ENTER` to run just the highlighted lines.  
 
 ```{r}
 unvotes |> 
-  count(country, vote) |> #comment
-  group_by(country) |> #comment
-  mutate(total = sum(n)) |> #comment 
-  mutate(prop_vote = n/total) |> #comment
+  count(country, vote) |> #counting country and vote
+  group_by(country) |> #grouping by country
+  mutate(total = sum(n)) |> #adding a column that gets total sum
+  mutate(prop_vote = n/total) |> #adding a column of the proportion of votes
   filter(country %in% c("United States", "Canada", 
                         "Germany", "France",
                         "Italy", "Japan",
-                        "United Kingdom")) |> #comment
+                        "United Kingdom")) |> #filters out different countries
   ggplot(aes(x = country, y = prop_vote, 
-             fill = vote)) + #comment
-  geom_col(position = position_stack()) + #comment
+             fill = vote)) + #creates plot on countries to the proportion of the votes
+  geom_col(position = position_stack()) + #stacks each country on top of eachother
   labs(x = "Group of Seven Countries",
        y = "Proportion of Votes",
        title = "Voting Record of the G7",
-       fill = "Vote") + #comment
-  theme_minimal() +  #comment
-  scale_fill_viridis_d(end = 0.8) + #comment
-  coord_flip() #comment
+       fill = "Vote") + #creates labels
+  theme_minimal() +  #color
+    scale_fill_viridis_d(end = 0.8) + #changes color
+  coord_flip() #flips coordinates
 ```
 
 > Describe what the graph above demonstrates above UN voting records for the G7 
   
+  The graph above demonstrates that the proportion of the votes were yes. 
   
   
   
@@ -177,7 +178,7 @@ roll_calls |>
 
 > Description of code results
 
-
+>It pulls a specific column
 
 We can use the individual data for `roll_calls` to look at the number of votes per year over time.
 
@@ -198,7 +199,7 @@ What information is missing from the above graphic that might be useful in under
 
 > Insert Answer Here
 
-
+> What specific countries voted for what
 
 We could try and look at the short descriptions, `short`, for each vote with the following code. 
 ```{r}
@@ -210,7 +211,7 @@ Does the above information help us understand the voting issues of the UN over t
 
 > Insert your answer here
 
-
+> the graph does not show detail of UN country voting so we cannot associate the ranking per country with the graph
 
 <!-- Swap roles -- Developer becomes Coder, Coder becomes Developer! -->
 
